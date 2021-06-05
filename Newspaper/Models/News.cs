@@ -13,15 +13,23 @@ namespace Newspaper.Models
 
         [Required]
         [Display(Name = "Título")]
+        [StringLength(100, MinimumLength = 10, ErrorMessage = "{0} deve ser maior que {2} e menor que {1}")]
         public string Title { get; set; }
 
         [Required]
         public string Body { get; set; }
-        public DateTime Date { get; set; }
 
+        [DisplayFormat(DataFormatString = "dd/MM/yyyy")]
+        public DateTime Date { get; set; }
         public Author Author { get; set; }
         public Category Category { get; set; }
+
+        [Required]
+        [Display(Name = "Author")]
         public int AuthorId { get; set; }
+        
+        [Required]
+        [Display(Name = "Category")]
         public int CategoryId { get; set; }
 
         public News()

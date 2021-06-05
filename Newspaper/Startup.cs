@@ -10,6 +10,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Newspaper.Data;
+using Newspaper.Services;
 
 namespace Newspaper
 {
@@ -29,6 +30,8 @@ namespace Newspaper
 
             services.AddDbContext<NewspaperContext>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("DevelopmentConnection")));
+
+            services.AddScoped<NewsService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -55,7 +58,7 @@ namespace Newspaper
             {
                 endpoints.MapControllerRoute(
                     name: "default",
-                    pattern: "{controller=Home}/{action=Index}/{id?}");
+                    pattern: "{controller=News}/{action=Index}/{id?}");
             });
         }
     }
