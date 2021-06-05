@@ -32,6 +32,7 @@ namespace Newspaper
                 options.UseSqlServer(Configuration.GetConnectionString("DevelopmentConnection")));
 
             services.AddScoped<NewsService>();
+            services.AddScoped<AuthorService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
