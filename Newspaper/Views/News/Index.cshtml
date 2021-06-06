@@ -1,23 +1,64 @@
-﻿@model IEnumerable<Newspaper.Models.News>
+﻿@model Newspaper.Models.ViewModel.NewspaperViewModel
 
 @{
     ViewData["Title"] = "Index";
 }
 
-<html xmlns="http://www.w3.org/1999/xhtml">
-<head>
-</head>
-<body>
-    <div class="row">
-        <div class="div-news col-3 border border-dark">
-            1
-        </div>
-        <div class="div-news col-3 border border-dark">
-            2
-        </div>
-        <div class="div-news col-3 border border-dark">
-            3
+<style>
+    .div-news-block {
+        height: 200px;
+        padding: 10px;
+        margin: 10px;
+    }
+
+    .div-news-body {
+        height: 110px;
+    }
+</style>
+
+@foreach (var item in Model.NewsList)
+{
+    <div class="row col-12 border-bottom border-dark div-news-block">
+        <div class="col-3"></div>
+        <div class="col-9">
+            <div class="align-top font-weight-bold text-danger" style="font-size: 35px;">
+                <a>@Html.DisplayFor(modelItem => item.Title)</a>
+            </div>
+            <div class="col-12 div-news-body" style="font-size:20px;">
+                @{
+                    string textBlock;
+                    if (item.Body.Length > 125)
+                    {
+                        textBlock = item.Body.Substring(0, 125);
+                        <p>@textBlock ...</p>
+                    }
+                    else
+                    {
+                        <p>@Html.DisplayFor(itemModel => item.Body)</p>
+                    }
+                }
+            </div>
+            <div>
+                @{
+                    TimeSpan timeAgo = DateTime.Now - item.Date;
+                    var time = Math.Floor(timeAgo.TotalHours);
+                    if (time < 24 && time >= 1)
+                    {
+                        <p>@time Horas atrás</p>
+                    }
+                    else if (time < 1)
+                    {
+                        time = Math.Floor(timeAgo.TotalMinutes);
+                        <p>@time Minutos atrás</p>
+                    }
+                    else
+                    {
+                        time = Math.Floor(timeAgo.TotalDays);
+                        <p>@time Dias atrás</p>
+                    }
+                }
+
+            </div>
         </div>
     </div>
-</body>
-</html>
+}

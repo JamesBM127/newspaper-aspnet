@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
+using Newspaper.Services;
 
 namespace Newspaper.Models
 {
@@ -23,6 +24,11 @@ namespace Newspaper.Models
         public Author(string name)
         {
             Name = name;
+        }
+
+        public string FindAuthorName(int id)
+        {
+            return new AuthorService().FindAuthorNameByIdService(id);
         }
     }
 }

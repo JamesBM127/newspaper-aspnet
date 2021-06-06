@@ -13,13 +13,13 @@ namespace Newspaper.Models
 
         [Required]
         [Display(Name = "Título")]
-        [StringLength(100, MinimumLength = 10, ErrorMessage = "{0} deve ser maior que {2} e menor que {1}")]
+        [StringLength(100, MinimumLength = 1, ErrorMessage = "{0} deve ser maior que {2} e menor que {1}")]
         public string Title { get; set; }
 
         [Required]
         public string Body { get; set; }
 
-        [DisplayFormat(DataFormatString = "dd/MM/yyyy")]
+        [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}")]
         public DateTime Date { get; set; }
         public Author Author { get; set; }
         public Category Category { get; set; }

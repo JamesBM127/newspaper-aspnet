@@ -13,24 +13,27 @@ namespace Newspaper.Controllers
     {
         private readonly NewsService _newsService;
         private readonly AuthorService _authorService;
+        private readonly CategoryService _categoryService;
 
-        public NewsController(NewsService newsService, AuthorService authorService)
+        public NewsController(NewsService newsService, AuthorService authorService, CategoryService categoryService)
         {
             _newsService = newsService;
             _authorService = authorService;
+            _categoryService = categoryService;
         }
 
         public async Task<IActionResult> Index()
         {
-            List<News> news = await _newsService.FindAllNewsAsync();
-            return View(news);
+            var news = await _newsService.FindAllNewsAsync();
+            NewspaperViewModel viewModel = new NewspaperViewModel() { NewsList = news };
+            return View(viewModel);
         }
 
         public async Task<IActionResult> Create()
         {
-            List<Author> authors = await _authorService.FindAllAuthors();
-            //List<Category> categories = 
-            var viewModel = new NewspaperViewModel(){ Authors = authors};
+            List<Author> authors = await _authorService.FindAllAuthorsAsync();
+            List<Category> categories = await _categoryService.FindAllCategoriesAsync();
+            var viewModel = new NewspaperViewModel(){ Authors = authors, Categories = categories};
             return View(viewModel);
         }
 
@@ -40,6 +43,7 @@ namespace Newspaper.Controllers
         {
             if (ModelState.IsValid)
             {
+                news.Date = DateTime.Now;
                 await _newsService.InsertNewsToDbAsync(news);
             }
             return RedirectToAction(nameof(Index));

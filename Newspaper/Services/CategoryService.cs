@@ -8,34 +8,29 @@ using System.Threading.Tasks;
 
 namespace Newspaper.Services
 {
-    public class AuthorService
+    public class CategoryService
     {
         private readonly NewspaperContext _newspaperContext;
 
-        public AuthorService()
+        public CategoryService()
         {
         }
 
-        public AuthorService(NewspaperContext newspaperContext)
+        public CategoryService(NewspaperContext newspaperContext)
         {
             _newspaperContext = newspaperContext;
         }
 
-        public string FindAuthorNameByIdService(int id)
+        public async Task<List<Category>> FindAllCategoriesAsync()
         {
-            return _newspaperContext.Authors.Find(id).Name;
-        }
-
-        public async Task<List<Author>> FindAllAuthorsAsync()
-        {
-            return await _newspaperContext.Authors
+            return await _newspaperContext.Categories
                 .OrderBy(obj => obj.Name)
                 .ToListAsync();
         }
 
-        public async Task InsertAuthorToDbAsync(Author author)
+        public async Task InsertCategoryToDbAsync(Category category)
         {
-            _newspaperContext.Add(author);
+            _newspaperContext.Add(category);
             await _newspaperContext.SaveChangesAsync();
         }
     }
