@@ -1,12 +1,10 @@
 ﻿@model Newspaper.Models.ViewModel.NewspaperViewModel
 
 @{
-    ViewData["Title"] = "Create";
+    ViewData["Title"] = "Edit";
 }
 
-<a class="btn btn-primary" asp-action="ManagerNews">Edit/Delete News</a>
-
-<h1>Create</h1>
+<h1>Edit</h1>
 
 <h4>News</h4>
 <hr />
@@ -16,13 +14,13 @@
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
                 <label asp-for="News.Title" class="control-label"></label>
-                <input asp-for="News.Title" value="News.Title" class="form-control" />
-                <span asp-validation-for="News.Title" class="text-danger"></span>
+                <input asp-for="News.Title" class="form-control" />
+                <span asp-validation-for="News.Title"></span>
             </div>
             <div class="form-group">
                 <label asp-for="News.Body" class="control-label"></label>
                 <textarea asp-for="News.Body" type="text" class="form-control" style="height: 200px;"></textarea>
-                <span asp-validation-for="News.Body" class="text-danger"></span>
+                <span asp-validation-for="News.Body"></span>
             </div>
             <div class="form-group">
                 <label asp-for="News.ImagePath" class="control-label"></label>
@@ -48,3 +46,4 @@
         </form>
     </div>
 </div>
+

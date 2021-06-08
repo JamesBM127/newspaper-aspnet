@@ -18,6 +18,7 @@ namespace Newspaper.Models
 
         [Required]
         public string Body { get; set; }
+        public string ImagePath { get; set; }
 
         [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}")]
         public DateTime Date { get; set; }
@@ -36,10 +37,11 @@ namespace Newspaper.Models
         {
         }
 
-        public News(string title, string body, DateTime date, Author author, Category category)
+        public News(string title, string body, string imagePath, DateTime date, Author author, Category category)
         {
             Title = title;
             Body = body;
+            ImagePath = imagePath;
             Date = date;
             Author = author;
             Category = category;

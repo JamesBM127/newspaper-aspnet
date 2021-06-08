@@ -33,7 +33,7 @@ namespace Newspaper.Controllers
         {
             List<Author> authors = await _authorService.FindAllAuthorsAsync();
             List<Category> categories = await _categoryService.FindAllCategoriesAsync();
-            var viewModel = new NewspaperViewModel(){ Authors = authors, Categories = categories};
+            var viewModel = new NewspaperViewModel() { Authors = authors, Categories = categories };
             return View(viewModel);
         }
 
@@ -47,6 +47,20 @@ namespace Newspaper.Controllers
                 await _newsService.InsertNewsToDbAsync(news);
             }
             return RedirectToAction(nameof(Index));
+        }
+
+        public async Task<IActionResult> Edit()
+        {
+            List<Author> authors = await _authorService.FindAllAuthorsAsync();
+            List<Category> categories = await _categoryService.FindAllCategoriesAsync();
+            var viewModel = new NewspaperViewModel() { Authors = authors, Categories = categories };
+            return View(viewModel);
+        }
+
+        public async Task<IActionResult> ManagerNews()
+        {
+            var news = await _newsService.FindAllNewsAsync();
+            return View(news);
         }
     }
 }

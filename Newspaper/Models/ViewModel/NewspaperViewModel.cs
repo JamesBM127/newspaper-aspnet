@@ -12,6 +12,5 @@ namespace Newspaper.Models.ViewModel
         public ICollection<News> NewsList { get; set; }
         public ICollection<Category> Categories { get; set; }
         public ICollection<Author> Authors { get; set; }
-        public Author Author { get; set; }
     }
 }

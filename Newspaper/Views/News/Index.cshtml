@@ -19,7 +19,14 @@
 @foreach (var item in Model.NewsList)
 {
     <div class="row col-12 border-bottom border-dark div-news-block">
-        <div class="col-3"></div>
+        <div class="col-3">
+            @{
+                if (item.ImagePath != null)
+                {
+                    <img src="@item.ImagePath" alt="Alternate Text" />
+                }
+            }
+        </div>
         <div class="col-9">
             <div class="align-top font-weight-bold text-danger" style="font-size: 35px;">
                 <a>@Html.DisplayFor(modelItem => item.Title)</a>
