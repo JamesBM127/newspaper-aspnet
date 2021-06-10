@@ -44,5 +44,16 @@ namespace Newspaper.Services
             _newspaperContext.Update(news);
             await _newspaperContext.SaveChangesAsync();
         }
+
+        public async Task<List<News>> FindNewsBySearch(string search)
+        {
+            return await _newspaperContext.News
+                .Where(
+                    obj => obj.Title.Contains(search) ||
+                    obj.Body.Contains(search) ||
+                    obj.Category.Name.Contains(search))
+                .OrderByDescending(obj => obj.Date)
+                .ToListAsync();
+        }
     }
 }

@@ -67,7 +67,7 @@ namespace Newspaper.Controllers
                 return NotFound();
             }
             if (ModelState.IsValid)
-            { 
+            {
                 try
                 {
                     await _newsService.UpdateNewsAsync(news);
@@ -80,6 +80,12 @@ namespace Newspaper.Controllers
         public async Task<IActionResult> ManagerNews()
         {
             var news = await _newsService.FindAllNewsAsync();
+            return View(news);
+        }
+
+        public async Task<IActionResult> Search(string search)
+        {
+            var news = await _newsService.FindNewsBySearch(search);
             return View(news);
         }
     }
