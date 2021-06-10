@@ -49,12 +49,32 @@ namespace Newspaper.Controllers
             return RedirectToAction(nameof(Index));
         }
 
-        public async Task<IActionResult> Edit()
+        public async Task<IActionResult> Edit(int id)
         {
             List<Author> authors = await _authorService.FindAllAuthorsAsync();
             List<Category> categories = await _categoryService.FindAllCategoriesAsync();
-            var viewModel = new NewspaperViewModel() { Authors = authors, Categories = categories };
+            var news = await _newsService.FindByIdAsync(id);
+            var viewModel = new NewspaperViewModel() { Authors = authors, Categories = categories, News = news };
             return View(viewModel);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Edit(int id, News news)
+        {
+            if (id != news.Id)
+            {
+                return NotFound();
+            }
+            if (ModelState.IsValid)
+            { 
+                try
+                {
+                    await _newsService.UpdateNewsAsync(news);
+                }
+                catch (Exception) { }
+            }
+            return LocalRedirect("~/News/ManagerNews");
         }
 
         public async Task<IActionResult> ManagerNews()

@@ -21,6 +21,11 @@ namespace Newspaper.Services
             _newspaperContext = newspaperContext;
         }
 
+        public async Task<News> FindByIdAsync(int id)
+        {
+            return await _newspaperContext.News.FindAsync(id);
+        }
+
         public async Task<List<News>> FindAllNewsAsync()
         {
             return await _newspaperContext.News
@@ -31,6 +36,12 @@ namespace Newspaper.Services
         public async Task InsertNewsToDbAsync(News news)
         {
             _newspaperContext.Add(news);
+            await _newspaperContext.SaveChangesAsync();
+        }
+
+        public async Task UpdateNewsAsync(News news)
+        {
+            _newspaperContext.Update(news);
             await _newspaperContext.SaveChangesAsync();
         }
     }

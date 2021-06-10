@@ -10,9 +10,9 @@
 </head>
 <body style="background-color: #F9F9F9">
     <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
+        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-danger border-bottom box-shadow mb-3 fixed-top">
             <div class="container">
-                <a class="navbar-brand" asp-area="" asp-controller="News" asp-action="Index">Newspaper</a>
+                <a class="navbar-brand text-light" asp-area="" asp-controller="News" asp-action="Index">Newspaper</a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
                         aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
@@ -20,16 +20,23 @@
                 <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
                     <ul class="navbar-nav flex-grow-1">
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="News" asp-action="Index">Home</a>
+                            <a class="nav-link text-light" asp-area="" asp-controller="News" asp-action="Index">Home</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="News" asp-action="Create">News Manager</a>
+                            <a class="nav-link text-light" asp-area="" asp-controller="News" asp-action="Create">News Manager</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Author" asp-action="Create">New Author</a>
+                            <a class="nav-link text-light" asp-area="" asp-controller="Author" asp-action="Create">New Author</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Category" asp-action="Create">New Category</a>
+                            <a class="nav-link text-light" asp-area="" asp-controller="Category" asp-action="Create">New Category</a>
+                        </li>
+                        <li class="nav-item">
+                            <label class="bg-light">
+                                
+                                <input class="border-0" placeholder="BUSCAR" />
+                            </label>
+                            
                         </li>
                     </ul>
                 </div>
@@ -38,7 +45,9 @@
     </header>
     <div class="container">
         <main role="main" class="pb-3">
-            @RenderBody()
+            <div style="margin-top:100px;">
+                @RenderBody()
+            </div>
         </main>
     </div>
 

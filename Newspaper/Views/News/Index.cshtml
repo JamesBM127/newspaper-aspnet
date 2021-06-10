@@ -5,6 +5,12 @@
 }
 
 <style>
+    .div-fixed-news {
+        height: 600px;
+        margin-bottom: 50px;
+        padding: 20px;
+    }
+
     .div-news-block {
         height: 200px;
         padding: 10px;
@@ -14,20 +20,67 @@
     .div-news-body {
         height: 110px;
     }
+
+    .col-custom-5 {
+        -ms-flex: 0 0 49%;
+        flex: 0 0 49%;
+        max-width: 49%;
+    }
+
+    .col-custom-xm-1 {
+        -ms-flex: 0 0 1%;
+        flex: 0 0 1%;
+        max-width: 1%;
+    }
 </style>
+
+<div class="row">
+    <div class="col-custom-5 div-fixed-news border" style="border-radius:5px;">
+        <div class="align-top font-weight-bold" style="font-size: 20px;">
+            Categoria
+        </div>
+        <div class="col-12 div-news-body" style="font-size:20px; margin-top:40%;">
+            <div class="font-weight-bold" style="font-size:35px;">
+                Titulo
+            </div>
+            <div>
+                Corpo
+            </div>
+        </div>
+    </div>
+    <div class="col-custom-xm-1"></div>
+    <div class="col-6 div-fixed-news" style="border-radius:5px; padding:0;">
+        <div class="border" style="border-radius:5px; height:49%; padding:20px;">
+            <div class="align-top" style="font-size: 20px;">
+                Categoria
+            </div>
+            <div class="font-weight-bold" style="margin-top:28%;font-size: 30px;">
+                <p>Titulo</p>
+            </div>
+        </div>
+        <div class="border" style="border-radius: 5px; height: 49%; margin-top: 2%; padding: 20px;">
+            <div class="align-top" style="font-size: 20px;">
+                Categoria
+            </div>
+            <div class="font-weight-bold" style="margin-top:28%;font-size: 30px;">
+                <p>Titulo</p>
+            </div>
+        </div>
+    </div>
+</div>
 
 @foreach (var item in Model.NewsList)
 {
     <div class="row col-12 border-bottom border-dark div-news-block">
-        <div class="col-3">
+        <div class="col-4" style="margin-left: -35px;">
             @{
                 if (item.ImagePath != null)
                 {
-                    <img src="@item.ImagePath" alt="Alternate Text" />
+                    <img src="@item.ImagePath" style="height:65%; width:80%;" alt="Alternate Text" />
                 }
             }
         </div>
-        <div class="col-9">
+        <div class="col-8">
             <div class="align-top font-weight-bold text-danger" style="font-size: 35px;">
                 <a>@Html.DisplayFor(modelItem => item.Title)</a>
             </div>
