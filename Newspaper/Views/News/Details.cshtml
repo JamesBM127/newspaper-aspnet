@@ -1,0 +1,33 @@
+﻿@model Newspaper.Models.ViewModel.NewspaperViewModel
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h1>Details</h1>
+
+<div>
+    <h4>News</h4>
+    <hr />
+
+    <h2>
+        @Html.DisplayFor(model => model.News.Title)
+    </h2>
+    <div style="border-radius:5px;">
+        <img src="@Model.News.ImagePath" />
+    </div>
+
+    <p style="font-size: 20px; margin-top: 10px;">
+        @Html.DisplayFor(model => model.News.Body)
+    </p>
+
+    <h6>
+        @Html.DisplayFor(model => model.News.Date)
+        <br />
+        @Html.DisplayFor(model => model.News.Author.Name)
+    </h6>
+</div>
+<div>
+    <a asp-action="Edit" asp-route-id="@Model.News.Id">Edit</a> |
+    <a asp-action="Index">Back to List</a>
+</div>

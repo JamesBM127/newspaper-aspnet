@@ -25,7 +25,8 @@ namespace Newspaper.Controllers
         public async Task<IActionResult> Index()
         {
             var news = await _newsService.FindAllNewsAsync();
-            NewspaperViewModel viewModel = new NewspaperViewModel() { NewsList = news };
+            var categories = await _categoryService.FindAllCategoriesAsync();
+            NewspaperViewModel viewModel = new NewspaperViewModel() { NewsList = news, Categories = categories };
             return View(viewModel);
         }
 
@@ -75,6 +76,14 @@ namespace Newspaper.Controllers
                 catch (Exception) { }
             }
             return LocalRedirect("~/News/ManagerNews");
+        }
+
+        public async Task<IActionResult> Details(int? id)
+        {
+            var news = await _newsService.FindByIdAsync(id.Value);
+            var authors = await _authorService.FindAllAuthorsAsync();
+            var viewModel = new NewspaperViewModel() { News = news, Authors = authors };
+            return View(viewModel);
         }
 
         public async Task<IActionResult> ManagerNews()

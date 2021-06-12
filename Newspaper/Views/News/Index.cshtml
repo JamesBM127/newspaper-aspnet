@@ -2,6 +2,8 @@
 
 @{
     ViewData["Title"] = "Index";
+    List<News> ModelList = new List<News>();
+    ModelList = Model.NewsList.ToList();
 }
 
 <style>
@@ -32,93 +34,128 @@
         flex: 0 0 1%;
         max-width: 1%;
     }
+
+    .link-hover h1:hover {
+        color: RGB(166, 19, 10);
+    }
 </style>
 
 <div class="row">
-    <div class="col-custom-5 div-fixed-news border" style="border-radius:5px;">
-        <div class="align-top font-weight-bold" style="font-size: 20px;">
-            Categoria
-        </div>
-        <div class="col-12 div-news-body" style="font-size:20px; margin-top:40%;">
-            <div class="font-weight-bold" style="font-size:35px;">
-                Titulo
+
+    <div class="col-custom-5 div-fixed-news border" style="border-radius: 5px;">
+        <a asp-action="Details" asp-route-id="@ModelList[0].Id" style="text-decoration:none">
+            <div class="align-top font-weight-bold text-dark" style="font-size: 20px;">
+                @ModelList[0].Category.Name
             </div>
-            <div>
-                Corpo
+            <div class="col-12 div-news-body" style="font-size:20px; margin-top:40%;">
+                <div class="font-weight-bold text-danger" style="font-size:35px;">
+                    <h1> @ModelList[0].Title</h1>
+                </div>
+                <div class="text-danger">
+                    @{
+                        string textBlock;
+                        if (ModelList[0].Body.Length > 217)
+                        {
+                            textBlock = ModelList[0].Body.Substring(0, 125);
+                            <p>@textBlock ...</p>
+                        }
+                        else
+                        {
+                            <p>@Html.DisplayFor(itemModel => ModelList[0].Body)</p>
+                        }
+                    }
+                </div>
             </div>
-        </div>
+        </a>
     </div>
+
+
     <div class="col-custom-xm-1"></div>
+
     <div class="col-6 div-fixed-news" style="border-radius:5px; padding:0;">
-        <div class="border" style="border-radius:5px; height:49%; padding:20px;">
-            <div class="align-top" style="font-size: 20px;">
-                Categoria
+        <a asp-action="Details" asp-route-id="@ModelList[1].Id" style="text-decoration:none">
+            <div class="border" style="border-radius:5px; height:49%; padding:20px; background: url('@ModelList[1].ImagePath') center no-repeat;">
+                <div class="align-top text-dark" style="font-size: 20px;">
+                    @ModelList[1].Category.Name
+                </div>
+                <div class="font-weight-bold text-danger" style="margin-top:28%;font-size: 30px;">
+                    <h1> @ModelList[1].Title</h1>
+                </div>
             </div>
-            <div class="font-weight-bold" style="margin-top:28%;font-size: 30px;">
-                <p>Titulo</p>
+        </a>
+        <a asp-action="Details" asp-route-id="@ModelList[2].Id" style="text-decoration:none">
+            <div class="border" style="border-radius: 5px; height: 49%; margin-top: 2%; padding: 20px; background: url('@ModelList[2].ImagePath') center no-repeat;">
+                <div class="align-top text-dark" style="font-size: 20px;">
+                    @ModelList[2].Category.Name
+                </div>
+                <div class="font-weight-bold text-danger" style="margin-top:28%;font-size: 30px;">
+                    <h1> @ModelList[2].Title</h1>
+                </div>
             </div>
-        </div>
-        <div class="border" style="border-radius: 5px; height: 49%; margin-top: 2%; padding: 20px;">
-            <div class="align-top" style="font-size: 20px;">
-                Categoria
-            </div>
-            <div class="font-weight-bold" style="margin-top:28%;font-size: 30px;">
-                <p>Titulo</p>
-            </div>
-        </div>
+        </a>
     </div>
 </div>
 
-@foreach (var item in Model.NewsList)
-{
-    <div class="row col-12 border-bottom border-dark div-news-block">
-        <div class="col-4" style="margin-left: -35px;">
-            @{
-                if (item.ImagePath != null)
-                {
-                    <img src="@item.ImagePath" style="height:65%; width:80%;" alt="Alternate Text" />
-                }
-            }
-        </div>
-        <div class="col-8">
-            <div class="align-top font-weight-bold text-danger" style="font-size: 35px;">
-                <a>@Html.DisplayFor(modelItem => item.Title)</a>
-            </div>
-            <div class="col-12 div-news-body" style="font-size:20px;">
+@{
+    int i = 0;
+    foreach (var item in Model.NewsList)
+    {
+        if (i < 3)
+        {
+            i++;
+            continue;
+        }
+        <div class="row col-12 border-bottom border-dark div-news-block">
+            <div class="col-4" style="margin-left: -35px;">
                 @{
-                    string textBlock;
-                    if (item.Body.Length > 125)
+                    if (item.ImagePath != null)
                     {
-                        textBlock = item.Body.Substring(0, 125);
-                        <p>@textBlock ...</p>
-                    }
-                    else
-                    {
-                        <p>@Html.DisplayFor(itemModel => item.Body)</p>
+                        <img src="@item.ImagePath" style="height:65%; width:80%;" alt="Alternate Text" />
                     }
                 }
             </div>
-            <div>
-                @{
-                    TimeSpan timeAgo = DateTime.Now - item.Date;
-                    var time = Math.Floor(timeAgo.TotalHours);
-                    if (time < 24 && time >= 1)
-                    {
-                        <p>@time Horas atrás</p>
+            <div class="col-8 link-hover">
+                <a asp-action="Details" asp-route-id="@item.Id" class="text-danger" style="text-decoration:none;">
+                    <div class="align-top font-weight-bold text-danger" style="font-size: 35px;">
+                        <h1>@Html.DisplayFor(modelItem => item.Title)</h1>
+                    </div>
+                </a>
+                <div class="col-12 div-news-body" style="font-size:20px;">
+                    @{
+                        if (item.Body.Length > 125)
+                        {
+                            string textBlockList;
+                            textBlockList = item.Body.Substring(0, 125);
+                            <p class="text-dark">@textBlockList ...</p>
+                        }
+                        else
+                        {
+                            <p class="text-dark">@Html.DisplayFor(itemModel => item.Body)</p>
+                        }
                     }
-                    else if (time < 1)
-                    {
-                        time = Math.Floor(timeAgo.TotalMinutes);
-                        <p>@time Minutos atrás</p>
+                </div>
+                <div>
+                    @{
+                        TimeSpan timeAgo = DateTime.Now - item.Date;
+                        var time = Math.Floor(timeAgo.TotalHours);
+                        if (time < 24 && time >= 1)
+                        {
+                            <p>@time Horas atrás</p>
+                        }
+                        else if (time < 1)
+                        {
+                            time = Math.Floor(timeAgo.TotalMinutes);
+                            <p>@time Minutos atrás</p>
+                        }
+                        else
+                        {
+                            time = Math.Floor(timeAgo.TotalDays);
+                            <p>@time Dias atrás</p>
+                        }
                     }
-                    else
-                    {
-                        time = Math.Floor(timeAgo.TotalDays);
-                        <p>@time Dias atrás</p>
-                    }
-                }
 
+                </div>
             </div>
         </div>
-    </div>
+    }
 }
